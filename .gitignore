@@ -1,0 +1,17 @@
+.DS_Store
+coverage
+node_modules
+
+# generated
+dist
+es
+lib
+types
+
+*.log
+_site/
+.firebase/
+configs/firebase.json
+target
+.idea
+.vscode

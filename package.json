@@ -1,0 +1,128 @@
+{
+  "name": "@sagar0907/firepad",
+  "description": "Collaborative text editing powered by Firebase",
+  "version": "0.0.1",
+  "author": {
+    "email": "sagarjain0907@gmail.com",
+    "name": "Sagar Jain",
+    "url": "https://github.com/sagar0907"
+  },
+  "contributors": [
+    "Progyan Bhattacharya <bprogyan@gmail.com>",
+    "Michael Lehenbauer <michael@firebase.com>"
+  ],
+  "maintainers": [
+    {
+      "email": "sagarjain0907@gmail.com",
+      "name": "Sagar Jain",
+      "url": "https://github.com/sagar0907"
+    },
+    "Firebase (https://firebase.google.com/)"
+  ],
+  "homepage": "http://www.firepad.io/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sagar0907/firepad.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sagar0907/firepad/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "text",
+    "word",
+    "editor",
+    "monaco",
+    "firebase",
+    "realtime",
+    "collaborative"
+  ],
+  "main": "dist/firepad.min.js",
+  "module": "es/index.js",
+  "types": "types",
+  "files": [
+    "dist/**",
+    "es/**",
+    "types/**",
+    "LICENSE",
+    "package.json",
+    "yarn.lock"
+  ],
+  "engines": {
+    "node": ">= 10.17.0"
+  },
+  "peerDependencies": {
+    "firebase": "8.8.1",
+    "monaco-editor": "^0.29.1"
+  },
+  "dependencies": {
+    "@operational-transformation/plaintext": "0.1.1",
+    "@operational-transformation/plaintext-editor": "0.1.1",
+    "@operational-transformation/state-machine": "0.1.1",
+    "mitt": "3.0.0",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "7.13.16",
+    "@babel/plugin-proposal-class-properties": "7.13.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.13.8",
+    "@babel/preset-env": "7.13.15",
+    "@babel/preset-typescript": "7.13.0",
+    "@types/jest": "26.0.23",
+    "@types/uuid": "8.3.0",
+    "babel-loader": "8.2.2",
+    "check-yarn-lock": "0.2.1",
+    "child-process-promise": "2.2.1",
+    "core-js": "3.11.0",
+    "css-loader": "5.2.4",
+    "firebase": "8.8.1",
+    "git-format-staged": "2.1.1",
+    "husky": "^7.0.0",
+    "jest": "27.0.3",
+    "monaco-editor": "^0.29.1",
+    "monaco-editor-webpack-plugin": "^5.0.0",
+    "prettier": "2.2.1",
+    "rimraf": "3.0.2",
+    "source-map-loader": "2.0.1",
+    "style-loader": "2.0.0",
+    "ts-jest": "27.0.3",
+    "typescript": "4.2.4",
+    "webpack": "5.34.0",
+    "webpack-cli": "4.6.0",
+    "webpack-dev-server": "3.11.2"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "start": "webpack serve --hot --progress --mode development --port 9000 --host 0.0.0.0 --config configs/webpack.dev.config.js",
+    "start:prod": "webpack serve --hot --progress --mode production --port 9000 --host 0.0.0.0 --config configs/webpack.dev.config.js",
+    "clean": "rimraf dist es lib types",
+    "prebuild": "yarn clean",
+    "build": "yarn build:esm && yarn build:cjs && yarn build:dist",
+    "build:dist": "NODE_ENV=production webpack --config configs/webpack.config.js",
+    "build:esm": "tsc -p configs/tsconfig.module.json",
+    "build:cjs": "tsc -p configs/tsconfig.json",
+    "lint": "yarn lint:lockfile && yarn lint:prettier",
+    "lint:prettier": "prettier --write configs examples src test",
+    "lint:lockfile": "check-yarn-lock",
+    "release": "./scripts/tag-and-version",
+    "test": "TEST_ENV=true jest --colors",
+    "test:ci": "yarn test --ci --silent",
+    "test:watch": "yarn test --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "git-format-staged -f \"yarn lint\" ."
+    }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/src/**",
+      "!**/src/firepad-classic.ts",
+      "!**/src/index.ts",
+      "!**/src/utils.ts"
+    ],
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}
