@@ -1,28 +1,20 @@
 {
-  "name": "@sagar0907/firepad",
+  "name": "@sagarjain0907/firepad",
   "description": "Collaborative text editing powered by Firebase",
   "version": "0.0.1",
-  "author": {
-    "email": "sagarjain0907@gmail.com",
-    "name": "Sagar Jain",
-    "url": "https://github.com/sagar0907"
-  },
+  "author": "Sagar Jain <sagarjain0907@gmail.com> (https://github.com/sagar0907)",
   "contributors": [
     "Progyan Bhattacharya <bprogyan@gmail.com>",
     "Michael Lehenbauer <michael@firebase.com>"
   ],
   "maintainers": [
-    {
-      "email": "sagarjain0907@gmail.com",
-      "name": "Sagar Jain",
-      "url": "https://github.com/sagar0907"
-    },
+    "Sagar Jain <sagarjain0907@gmail.com> (https://github.com/sagar0907)",
     "Firebase (https://firebase.google.com/)"
   ],
   "homepage": "http://www.firepad.io/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sagar0907/firepad.git"
+    "url": "git+https://github.com/sagar0907/firepad.git"
   },
   "bugs": {
     "url": "https://github.com/sagar0907/firepad/issues"
@@ -124,5 +116,9 @@
     ],
     "preset": "ts-jest",
     "testEnvironment": "node"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
   }
 }
