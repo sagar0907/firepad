@@ -1,11 +1,15 @@
 {
   "name": "@sagarjain0907/firepad",
   "description": "Collaborative text editing powered by Firebase",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Sagar Jain <sagarjain0907@gmail.com> (https://github.com/sagar0907)",
   "contributors": [
     "Progyan Bhattacharya <bprogyan@gmail.com>",
-    "Michael Lehenbauer <michael@firebase.com>"
+    "Michael Lehenbauer <michael@firebase.com>",
+    "Brijesh Bittu <brijesh@hackerrank.com>",
+    "Nishchay Kaushik <nishchay@hackerrank.com>",
+    "Mohanasundar <mohana.sundar@hackerrank.com>",
+    "Shubham Shekhar <shubhamshekhar567@gmail.com>"
   ],
   "maintainers": [
     "Sagar Jain <sagarjain0907@gmail.com> (https://github.com/sagar0907)",
