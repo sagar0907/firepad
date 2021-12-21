@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import { DatabaseReference } from "firebase/database";
 import * as monaco from "monaco-editor";
 import { v4 as uuid } from "uuid";
 
@@ -14,7 +14,7 @@ import * as Utils from "./utils";
  * @param options - Firepad constructor options (optional).
  */
 export function fromMonaco(
-  databaseRef: string | firebase.database.Reference,
+  databaseRef: string | DatabaseReference,
   editor: monaco.editor.IStandaloneCodeEditor,
   options: Partial<IFirepadConstructorOptions> = {}
 ): IFirepad {

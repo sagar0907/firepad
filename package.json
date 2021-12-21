@@ -1,7 +1,7 @@
 {
   "name": "@sagarjain0907/firepad",
   "description": "Collaborative text editing powered by Firebase",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "author": "Sagar Jain <sagarjain0907@gmail.com> (https://github.com/sagar0907)",
   "contributors": [
     "Progyan Bhattacharya <bprogyan@gmail.com>",
@@ -48,7 +48,7 @@
     "node": ">= 10.17.0"
   },
   "peerDependencies": {
-    "firebase": "8.8.1",
+    "firebase": "^9.6.1",
     "monaco-editor": "^0.29.1"
   },
   "dependencies": {
@@ -71,7 +71,7 @@
     "child-process-promise": "2.2.1",
     "core-js": "3.11.0",
     "css-loader": "5.2.4",
-    "firebase": "8.8.1",
+    "firebase": "^9.6.1",
     "git-format-staged": "2.1.1",
     "husky": "^7.0.0",
     "jest": "27.0.3",

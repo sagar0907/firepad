@@ -1,22 +1,28 @@
 import * as monaco from "monaco-editor";
 import firebase from "firebase/app";
-import "firebase/database";
+import {
+  DatabaseReference,
+  getDatabase,
+  ref,
+  child,
+  push,
+} from "firebase/database";
 
 import * as Firepad from "../src";
 
-const getExampleRef = function (): firebase.database.Reference {
-  let ref = firebase.database().ref();
+const getExampleRef = function (): DatabaseReference {
+  let reference = ref(getDatabase());
 
   const hash = window.location.hash.replace(/#/g, "");
   if (hash) {
-    ref = ref.child(hash);
+    reference = child(reference, hash);
   } else {
-    ref = ref.push(); // generate unique location.
-    window.location.replace(window.location + "#" + ref.key); // add it as a hash to the URL.
+    reference = push(reference); // generate unique location.
+    window.location.replace(window.location + "#" + reference.key); // add it as a hash to the URL.
   }
 
-  console.log("Firebase data: ", ref.toString());
-  return ref;
+  console.log("Firebase data: ", reference.toString());
+  return reference;
 };
 
 const init = function (): void {
@@ -73,7 +79,7 @@ if (module.hot) {
     const firepad: Firepad.Firepad = window["firepad"];
 
     // Get Constructor Options
-    const firepadRef: firebase.database.Reference = getExampleRef();
+    const firepadRef: DatabaseReference = getExampleRef();
     const userId: string | number = firepad.getConfiguration("userId");
     const userName: string = firepad.getConfiguration("userName");
 

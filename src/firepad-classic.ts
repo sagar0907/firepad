@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import { DatabaseReference, push } from "firebase/database";
 import * as monaco from "monaco-editor";
 import {
   Cursor,
@@ -48,7 +48,7 @@ export default class FirepadClassic implements IFirepad {
    * @param options - Firepad constructor options (optional).
    */
   constructor(
-    databaseRef: firebase.database.Reference,
+    databaseRef: DatabaseReference,
     editor: monaco.editor.IStandaloneCodeEditor,
     options: IFirepadClassicConstructorOptions = {}
   ) {
@@ -61,7 +61,7 @@ export default class FirepadClassic implements IFirepad {
     this._zombie = false;
     this._options = options;
 
-    options.userId = this._getOptions("userId", () => databaseRef.push().key);
+    options.userId = this._getOptions("userId", () => push(databaseRef).key);
     options.userColor = this._getOptions("userColor", () =>
       Utils.colorFromUserId(options.userId!.toString())
     );
@@ -213,7 +213,7 @@ export default class FirepadClassic implements IFirepad {
    * @param options - Firepad constructor options (optional).
    */
   static fromMonaco(
-    databaseRef: firebase.database.Reference,
+    databaseRef: DatabaseReference,
     editor: monaco.editor.IStandaloneCodeEditor,
     options?: IFirepadClassicConstructorOptions
   ) {

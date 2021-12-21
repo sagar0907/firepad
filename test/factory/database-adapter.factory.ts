@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import { DatabaseReference } from "firebase/database";
 import { IPlainTextOperation as ITextOperation } from "@operational-transformation/plaintext";
 import {
   ICursor,
@@ -20,7 +20,7 @@ type DatabaseAdapterConfigType = {
   userColor: string;
 };
 
-let databaseRef: string | firebase.database.Reference;
+let databaseRef: string | DatabaseReference;
 let user: DatabaseAdapterConfigType;
 
 const emitter = mitt();
@@ -31,7 +31,7 @@ export interface IDatabaseAdapterMock extends Partial<IDatabaseAdapter> {
   /** Get current User object attached to the adapter */
   getUser(): DatabaseAdapterConfigType;
   /** Get Database Reference attached to the adapter */
-  getDatabaseRef(): string | firebase.database.Reference;
+  getDatabaseRef(): string | DatabaseReference;
 }
 
 // @ts-expect-error
@@ -64,7 +64,7 @@ const databaseAdapter: IDatabaseAdapterMock = Object.freeze({
     user.userName = name;
   }),
   getUser: jest.fn<DatabaseAdapterConfigType, []>(() => user),
-  getDatabaseRef: jest.fn<string | firebase.database.Reference, []>(
+  getDatabaseRef: jest.fn<string | DatabaseReference, []>(
     () => databaseRef
   ),
 });
@@ -83,7 +83,7 @@ afterAll(() => {
  * Useful for testing Editor Client, Firepad and related helper functions.
  */
 export function getDatabaseAdapter(
-  ref: string | firebase.database.Reference = ".root",
+  ref: string | DatabaseReference = ".root",
   userConfig: DatabaseAdapterConfigType = {
     userId: "user",
     userName: "User",

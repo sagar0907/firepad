@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import { DatabaseReference } from "firebase/database";
 import { editor } from "monaco-editor";
 import { fromMonaco } from "../src/firepad-monaco";
 import { getDatabaseAdapter, getEditorAdapter } from "./factory";
@@ -8,7 +8,7 @@ jest.mock("../src/firebase-adapter", () => {
   const { getDatabaseAdapter } = require("./factory/database-adapter.factory");
   class FirebaseAdapterMock {
     constructor(
-      databaseRef: string | firebase.database.Reference,
+      databaseRef: string | DatabaseReference,
       userId: number | string,
       userColor: string,
       userName: string
