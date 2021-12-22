@@ -40,6 +40,7 @@ type FirebaseRefCallbackHookType = {
   reference: DatabaseReference | Query;
   eventType: EventType;
   callback: FirebaseRefCallbackType;
+  context?: ThisType<FirebaseAdapter>;
 };
 
 type RevisionType = {
@@ -292,7 +293,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
       startAt(null, this._revisionToId(revision))
     );
 
-    this._firebaseOn(historyRef, "child_added", this._historyChildAdded);
+    this._firebaseOn(historyRef, "child_added", this._historyChildAdded, this);
 
     onValue(
       historyRef,
@@ -635,43 +636,45 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   protected _monitorCursors(): void {
     const usersRef = child(this._databaseRef!, "users");
 
-    this._firebaseOn(usersRef, "child_added", this._childChanged);
-    this._firebaseOn(usersRef, "child_changed", this._childChanged);
-    this._firebaseOn(usersRef, "child_removed", this._childRemoved);
+    this._firebaseOn(usersRef, "child_added", this._childChanged, this);
+    this._firebaseOn(usersRef, "child_changed", this._childChanged, this);
+    this._firebaseOn(usersRef, "child_removed", this._childRemoved, this);
   }
 
   protected _firebaseOn(
     reference: DatabaseReference | Query,
     eventType: EventType,
-    callback: FirebaseRefCallbackType
+    callback: FirebaseRefCallbackType,
+    context?: ThisType<IDatabaseAdapter>
   ): void {
     this._firebaseCallbacks.push({
       reference,
       eventType,
       callback,
+      context,
     });
 
     if (eventType === "value") {
-      onValue(reference, callback);
+      onValue(reference, callback.bind(context));
     }
 
     if (eventType === "child_added") {
-      onChildAdded(reference, callback);
+      onChildAdded(reference, callback.bind(context));
     }
 
     if (eventType === "child_changed") {
-      onChildChanged(reference, callback);
+      onChildChanged(reference, callback.bind(context));
     }
 
     if (eventType === "child_moved") {
-      onChildMoved(reference, callback);
+      onChildMoved(reference, callback.bind(context));
     }
   }
 
   protected _removeFirebaseCallbacks() {
     for (const callbackRef of this._firebaseCallbacks) {
-      const { reference, eventType, callback } = callbackRef;
-      off(reference, eventType, callback);
+      const { reference, eventType, callback, context } = callbackRef;
+      off(reference, eventType, callback.bind(context));
     }
 
     this._firebaseCallbacks = [];
